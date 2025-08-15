@@ -1,40 +1,6 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #ffe6f0;
-    color: #330033;
-    text-align: center;
-    margin: 0;
-    padding: 20px;
-}
-
-h1 {
-    margin-bottom: 20px;
-}
-
-.malla-container {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-}
-
-.year {
-    border: 2px solid #ff99cc;
-    padding: 15px;
-    border-radius: 10px;
-    background-color: #fff0f5;
-}
-
-.semester {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 10px;
-    justify-content: center;
-}
-
 .materia {
     padding: 10px 15px;
-    background-color: #ffccdd;
+    background-color: #ffc0cb;
     border: 2px solid #ff99cc;
     border-radius: 5px;
     cursor: pointer;
@@ -49,12 +15,7 @@ h1 {
 }
 
 .materia.approved {
-    background-color: #ff99cc;
+    background-color: #ff69b4;
     color: white;
     font-weight: bold;
-    border: 2px solid #ff3399;
-}
-
-.materia:hover:not(.locked) {
-    transform: scale(1.05);
 }
