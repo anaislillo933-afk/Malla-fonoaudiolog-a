@@ -1,27 +1,36 @@
 const materias = document.querySelectorAll('.materia');
 
-// Inicialmente bloqueamos materias con prerrequisitos
-materias.forEach(m => {
-    if (m.dataset.abre) {
-        const prereq = [...materias].find(x => x.dataset.abre?.includes(m.dataset.name));
-        if (prereq) {
+function checkUnlock() {
+    materias.forEach(m => {
+        const prereqs = m.dataset.prereq.split(';').filter(p => p);
+        const unlocked = prereqs.every(p => {
+            const prereqMateria = [...materias].find(x => x.dataset.name === p);
+            return prereqMateria && prereqMateria.classList.contains('approved');
+        });
+        if (unlocked) {
+            m.classList.remove('locked');
+        } else if (prereqs.length > 0) {
             m.classList.add('locked');
+            m.classList.remove('approved'); // evitar que quede aprobado si se cambian prerrequisitos
         }
+    });
+}
+
+// Inicialmente bloquear materias con prerrequisitos
+materias.forEach(m => {
+    if (m.dataset.prereq) {
+        m.classList.add('locked');
     }
 });
 
+// Click en materia
 materias.forEach(m => {
     m.addEventListener('click', () => {
         if (m.classList.contains('locked')) return;
-
-        // Marcar como aprobado
         m.classList.toggle('approved');
-
-        // Desbloquear materias que dependen de esta
-        materias.forEach(target => {
-            if (target.dataset.abre && target.dataset.abre.includes(m.dataset.name)) {
-                target.classList.remove('locked');
-            }
-        });
+        checkUnlock(); // actualizar desbloqueos
     });
 });
+
+// Ejecutar al cargar
+checkUnlock();
